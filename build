@@ -1,5 +1,6 @@
 #!/bin/bash
 
+docker build -t luweiss-docker-lnmp/mysql:8.0 -f build-files/mysql80 build-files/.
 docker build -t luweiss-docker-lnmp/php-fpm:7.2 -f build-files/php72-fpm build-files/.
 docker build -t luweiss-docker-lnmp/nginx -f build-files/nginx build-files/.
 cp -r -p ./build-files/config ./

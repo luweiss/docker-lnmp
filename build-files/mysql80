@@ -1,0 +1,6 @@
+#mysql80 dockerfile
+FROM mysql:8.0
+COPY debian-stretch-sources.list /etc/apt/sources.list
+RUN apt-get update && \
+    apt-get install -y procps && \
+    rm -r /var/lib/apt/lists/*
