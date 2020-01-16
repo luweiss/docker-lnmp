@@ -1,0 +1,17 @@
+# IDE文件
+.idea
+.vscode
+nbproject
+.buildpath
+.project
+.settings
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# docker-lnmp本地文件
+/config
+/data
+/logs
+/www

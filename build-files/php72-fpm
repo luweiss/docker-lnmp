@@ -1,0 +1,9 @@
+#php-fpm72 dockerfile
+FROM php:7.2-fpm
+COPY debian-buster-sources.list /etc/apt/sources.list
+RUN apt-get update && \
+    apt-get install -y procps libfreetype6-dev libjpeg-dev libpng-dev libzip-dev && \
+    rm -r /var/lib/apt/lists/* && \
+    docker-php-ext-configure gd --with-freetype-dir=/usr/include --with-jpeg-dir=/usr/include && \
+    docker-php-ext-configure opcache --enable-opcache && \
+    docker-php-ext-install -j$(nproc) pdo_mysql pcntl bcmath sockets gd zip opcache

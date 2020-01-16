@@ -1,0 +1,6 @@
+#nginx dockerfile
+FROM nginx
+COPY debian-buster-sources.list /etc/apt/sources.list
+RUN apt-get update && \
+    apt-get install -y procps && \
+    rm -r /var/lib/apt/lists/*

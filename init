@@ -1,0 +1,42 @@
+#!/bin/bash
+
+basepath=$(cd `dirname $0`; pwd)
+
+docker stop luweiss-docker-lnmp-mysql80 && docker rm luweiss-docker-lnmp-mysql80
+docker run -d \
+--name luweiss-docker-lnmp-mysql80 \
+-v $basepath/config/mysql80:/etc/mysql \
+-v $basepath/data/mysql80:/var/lib/mysql \
+-e MYSQL_ROOT_PASSWORD=123456 \
+-p 33060:3306 \
+mysql:8.0
+
+docker stop luweiss-docker-lnmp-php72-fpm && docker rm luweiss-docker-lnmp-php72-fpm
+docker run -d \
+--name luweiss-docker-lnmp-php72-fpm \
+--link luweiss-docker-lnmp-mysql80 \
+-v $basepath/www:/var/www/html \
+-v $basepath/config/php72/conf.d:/usr/local/etc/php/conf.d \
+-v $basepath/config/php72/php-fpm.d:/usr/local/etc/php-fpm.d \
+-v $basepath/config/php72/extension:/usr/local/lib/php/extensions/host \
+luweiss-docker-lnmp/php-fpm:7.2
+
+docker stop luweiss-docker-lnmp-nginx && docker rm luweiss-docker-lnmp-nginx
+docker run -d \
+--name luweiss-docker-lnmp-nginx \
+--link luweiss-docker-lnmp-php72-fpm \
+-v $basepath/www:/usr/share/nginx/html \
+-v $basepath/config/nginx:/etc/nginx \
+-v $basepath/logs/nginx:/var/log/nginx \
+-p 8080:80 \
+-p 1443:443 \
+luweiss-docker-lnmp/nginx
+
+docker ps
+
+if [ ! -f $basepath/www/index.php ]
+  then
+    echo "<?php echo 'Docker LNMP.';" >> $basepath/www/index.php
+fi
+
+echo -e "\033[32m Docker LNMP init successful. \033[0m"

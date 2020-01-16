@@ -1,0 +1,5 @@
+#!/bin/bash
+
+docker rm luweiss-docker-lnmp-nginx
+docker rm luweiss-docker-lnmp-php72-fpm
+docker rm luweiss-docker-lnmp-mysql80

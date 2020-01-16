@@ -1,0 +1,6 @@
+#!/bin/bash
+
+docker build -t luweiss-docker-lnmp/php-fpm:7.2 -f build-files/php72-fpm build-files/.
+docker build -t luweiss-docker-lnmp/nginx -f build-files/nginx build-files/.
+cp -r -p ./build-files/config ./
+echo -e "\033[32m Docker LNMP build successful. \033[0m"
