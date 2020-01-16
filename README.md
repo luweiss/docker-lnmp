@@ -9,15 +9,16 @@
     ```shell script
     ./build
     ```
-
-
 2. 启动容器
 
     ```shell script
     ./init
     ```
+3. 访问
 
-3. 连接容器(可选)
+   使用浏览器打开`http://127.0.0.1:8080`即可访问
+
+4. 连接容器(可选)
 
     ```shell script
     ./connect
